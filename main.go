@@ -88,7 +88,7 @@ func rgb(i int) (int, int, int) {
         int(math.Sin(f*float64(i)+4*math.Pi/3)*127 + 128)
 }
 
-func print(output string) {
+func print(output []rune) {
     for j := 0; j < len(output); j++ {
         r, g, b := rgb(j)
         fmt.Printf("\033[38;2;%d;%d;%dm%c\033[0m", r, g, b, output[j])
@@ -128,7 +128,7 @@ func main() {
 	maxwidth := calculateMaxWidth(lines)
 	messages := normalizeStringsLength(lines, maxwidth)
 	balloon := buildBalloon(messages, maxwidth)
-	print(balloon)
-	print(cow)
+	print([]rune(balloon))
+	print([]rune(cow))
 	print()
 }
