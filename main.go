@@ -80,6 +80,21 @@ func normalizeStringsLength(lines []string, maxwidth int) []string {
 	return ret
 }
 
+func rgb(i int) (int, int, int) {
+    var f = 0.1
+    return int(math.Sin(f*float64(i)+0)*127 + 128),
+        int(math.Sin(f*float64(i)+2*math.Pi/3)*127 + 128),
+        int(math.Sin(f*float64(i)+4*math.Pi/3)*127 + 128)
+}
+
+func print(output []string) {
+    for j := 0; j < len(output); j++ {
+        r, g, b := rgb(j)
+        fmt.Printf("\033[38;2;%d;%d;%dm%c\033[0m", r, g, b, output[j])
+    }
+    fmt.Println()
+}
+
 func main() {
 	info, _ := os.Stdin.Stat()
 
@@ -112,7 +127,7 @@ func main() {
 	maxwidth := calculateMaxWidth(lines)
 	messages := normalizeStringsLength(lines, maxwidth)
 	balloon := buildBalloon(messages, maxwidth)
-	fmt.Println(balloon)
-	fmt.Println(cow)
-	fmt.Println()
+	print(balloon)
+	print(cow)
+	print()
 }
